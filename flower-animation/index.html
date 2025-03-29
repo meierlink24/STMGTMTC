@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #87CEEB;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 30%;
+      background: #228B22;
+    }
+    
+    .stem {
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      width: 10px;
+      height: 200px;
+      background: #228B22;
+      transform-origin: bottom center;
+      animation: sway 4s ease-in-out infinite;
+    }
+    
+    .flower {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -100%);
+    }
+    
+    .petals {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      transform: translate(-50%, -50%);
+    }
+    
+    .center {
+      width: 30px;
+      height: 30px;
+      background: #FFFF00;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    
+    .petal {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    
+    .petal:nth-child(1) {
+      transform: translate(-50%, -50%) translateX(30px);
+    }
+    
+    .petal:nth-child(2) {
+      transform: translate(-50%, -50%) translateY(30px);
+    }
+    
+    .petal:nth-child(3) {
+      transform: translate(-50%, -50%) translateX(-30px);
+    }
+    
+    .petal:nth-child(4) {
+      transform: translate(-50%, -50%) translateY(-30px);
+    }
+    
+    .petal:nth-child(5) {
+      transform: translate(-50%, -50%) translate(21px, 21px);
+    }
+    
+    .petal:nth-child(6) {
+      transform: translate(-50%, -50%) translate(-21px, 21px);
+    }
+    
+    .petal:nth-child(7) {
+      transform: translate(-50%, -50%) translate(-21px, -21px);
+    }
+    
+    .petal:nth-child(8) {
+      transform: translate(-50%, -50%) translate(21px, -21px);
+    }
+    
+    .wind {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      animation: windMove 10s linear infinite;
+    }
+    
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(-50%) rotate(5deg);
+      }
+      50% {
+        transform: translateX(-50%) rotate(-5deg);
+      }
+    }
+    
+    @keyframes windMove {
+      0% {
+        left: -5%;
+        top: 20%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.7;
+      }
+      80% {
+        opacity: 0.7;
+      }
+      100% {
+        left: 105%;
+        top: 30%;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="ground"></div>
+    <div class="stem">
+      <div class="flower">
+        <div class="petals">
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Create wind particles
+    function createWindParticles() {
+      const scene = document.querySelector('.scene');
+      const windSymbols = ['~', '〜', '≈', '∿'];
+      
+      setInterval(() => {
+        const wind = document.createElement('div');
+        wind.className = 'wind';
+        wind.textContent = windSymbols[Math.floor(Math.random() * windSymbols.length)];
+        wind.style.top = Math.random() * 60 + 20 + '%';
+        wind.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        scene.appendChild(wind);
+
+        setTimeout(() => {
+          wind.remove();
+        }, 10000);
+      }, 500);
+    }
+    
+
+    function enhanceStemMovement() {
+      const stem = document.querySelector('.stem');
+
+      setInterval(() => {
+        const swayDuration = 3 + Math.random() * 2;
+        stem.style.animationDuration = swayDuration + 's';
+      }, 4000);
+    }
+    
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createWindParticles();
+      enhanceStemMovement();
+    });
+  </script>
+</body>
+</html>
